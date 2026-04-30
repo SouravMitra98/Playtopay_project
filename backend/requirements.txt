@@ -6,3 +6,4 @@ redis
 dj-database-url
 python-dotenv
 uvicorn
+django-cors-headers
