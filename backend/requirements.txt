@@ -3,4 +3,5 @@ djangorestframework
 psycopg2-binary
 celery
 redis
+dj-database-url
 python-dotenv
