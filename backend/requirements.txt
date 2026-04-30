@@ -5,3 +5,4 @@ celery
 redis
 dj-database-url
 python-dotenv
+gunicorn
