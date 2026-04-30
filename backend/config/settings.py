@@ -1,9 +1,10 @@
 import os
 from corsheaders.defaults import default_headers
+import dj_database_url
 
 main_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = "ab123@"
-DEBUG = True
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG") == "True"
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -38,21 +39,17 @@ REST_FRAMEWORK = {
 ROOT_URLCONF = "config.urls"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "playtopay",
-        "USER": "postgres",
-        "PASSWORD": "Sourav7452",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
+    "default": dj_database_url.parse(
+        os.environ.get("DATABASE_URL")
+    )
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "testserver"]
+ALLOWED_HOSTS = ["*"]
 
-STATIC_URL = "/static/"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
