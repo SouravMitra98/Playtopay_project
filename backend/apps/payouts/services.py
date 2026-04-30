@@ -32,5 +32,7 @@ def payment_create(merchant, amount, bank):
 
     list(LegEntry.objects.select_for_update().filter(merchant=merchant))
 
+    process_pay(payout.id)
+
     # transaction.on_commit(lambda: process_pay.delay(payout.id))
     return payout
